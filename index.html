@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Kumo Nanahoshi / Irène </title>
+    <style>
+
+        :root {
+            --bg-color: #fcfcfc;     
+            --ink-color: #111111;    
+            --grid-line: #e0e0e0;    
+            
+            --accent-cyan: #00AEEF;
+            --accent-magenta: #EC008C;
+            --accent-yellow: #FFF200;
+            --accent-orange: #FF4400; 
+        }
+
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--ink-color);
+
+            font-family: "SF Mono", "Roboto Mono", "Courier New", monospace;
+            line-height: 1.6;
+            font-size: 14px;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+        }
+
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: 250px 1fr; 
+            min-height: 100vh;
+            border-top: 1px solid var(--ink-color);
+        }
+
+        aside {
+            border-right: 1px solid var(--ink-color);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+        }
+
+
+        main {
+            display: flex;
+            flex-direction: column;
+        }
+
+
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 40px;
+            display: block;
+        }
+
+        /* 导航链接 */
+        nav ul {
+            list-style: none;
+        }
+
+        nav li {
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        nav a {
+            display: inline-block;
+            transition: all 0.2s ease;
+        }
+
+        nav a:hover, .paper-link:hover h3 {
+            animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+            color: var(--accent-magenta);
+            text-shadow: 2px 0 var(--accent-cyan), -2px 0 var(--accent-yellow);
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0) }
+            20% { transform: translate(-2px, 2px) }
+            40% { transform: translate(-2px, -2px) }
+            60% { transform: translate(2px, 2px) }
+            80% { transform: translate(2px, -2px) }
+            100% { transform: translate(0) }
+        }
+
+        section {
+            border-bottom: 1px solid var(--ink-color);
+            padding: 60px;
+            min-height: 50vh; 
+        }
+
+        h2 {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+        }
+
+        h2::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-orange);
+            border-radius: 50%;
+            margin-right: 15px;
+            border: 1px solid var(--ink-color);
+        }
+
+        /* 简介文本 */
+        .bio-text {
+            max-width: 600px;
+            font-size: 18px;
+            line-height: 1.8;
+        }
+
+        .paper-list {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .paper-item {
+            display: grid;
+            grid-template-columns: 100px 1fr auto;
+            gap: 20px;
+            align-items: baseline;
+            padding-bottom: 20px;
+            border-bottom: 1px dotted #ccc; 
+            position: relative;
+        }
+
+        .paper-year {
+            color: #888;
+            font-size: 12px;
+        }
+
+        .paper-details h3 {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .paper-meta {
+            font-size: 12px;
+            color: #555;
+        }
+
+        .pdf-tag {
+            font-size: 10px;
+            border: 1px solid var(--ink-color);
+            padding: 4px 12px;
+            background: #fff;
+            transition: 0.2s;
+            position: relative;
+            top: -2px;
+        }
+
+        .pdf-tag:hover {
+            background: var(--accent-yellow);
+            box-shadow: 4px 4px 0 var(--accent-cyan); 
+            transform: translate(-2px, -2px);
+        }
+
+
+        @media (max-width: 768px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+            aside {
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--ink-color);
+                padding: 20px;
+                position: relative;
+            }
+            section {
+                padding: 30px 20px;
+            }
+            .paper-item {
+                grid-template-columns: 1fr; 
+                gap: 5px;
+            }
+        }
+        
+
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image: 
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+
+
+    <div class="bg-grid"></div>
+
+    <div class="grid-container">
+        <aside>
+            <div class="header-top">
+                <h1>KumoNanahoshi / Irène </h1>
+                <span class="subtitle"> Ingénieure @ École Polytechnique </span>
+                
+                <nav>
+                    <ul>
+                        <li><a href="#intro">01. Introduction</a></li>
+                        <li><a href="#papers">02. Publications</a></li>
+                        <li><a href="#projects">03. Projects</a></li>
+                        <li><a href="#contact">04. Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="header-bottom">
+                <p style="font-size: 10px; color: #888;">
+                    DESIGNED FOR<br>
+                    INTERNSHIP SUMMER '26
+                </p>
+            </div>
+        </aside>
+
+
+        <main>
+            <section id="intro">
+                <h2>About Me</h2>
+                <div class="bio-text">
+                    <p>
+                        I am a engineer student focused on Algebraic Topology, especially Homotopy Theory. 
+                        <br><br>
+                        I have interests in minimalist algorithms and high-dimensional data structures. Currently seeking research/intern opportunities for Summer 2026.
+                </div>
+            </section>
+
+
+            <section id="papers">
+                <h2>Selected Notes</h2>
+                <div class="paper-list">
+
+                    <div class="paper-item">
+                        <div class="paper-year">2025</div>
+                        <div class="paper-details">
+                            <a href="#" class="paper-link"><h3>Notes On the Dundas-Goodwillie-McCarthy Theorem, Why K theory and TC should have the same derivative </h3></a>
+                            <div class="paper-meta">
+                            </div>
+                        </div>
+                        <a href="https://kumonanahoshi.github.io/On_the_Dundas_Goodwillie_McCarthy_theorem_Sam_Raskin_Section_1%262.pdf" class="pdf-tag">PDF</a>
+                    </div>
+                    
+                    <div class="paper-item">
+                        <div class="paper-year">2023</div>
+                        <div class="paper-details">
+                            <a href="#" class="paper-link"><h3>Basic Algebraic Topology: CW complexes and homotopy theory</h3></a>
+                            <div class="paper-meta">
+                            </div>
+                        </div>
+                        <a href="https://kumonanahoshi.github.io/AlgTop.pdf" class="pdf-tag">PDF</a>
+                    </div>
+
+                    
+
+                    
+
+                    <div class="paper-item">
+                        <div class="paper-year">2025</div>
+                        <div class="paper-details">
+                            <a href="#" class="paper-link"><h3>Notes on the unicity of higher categories</h3></a>
+                            <div class="paper-meta">
+                            </div>
+                        </div>
+                        <a href="https://KumoNanahoshi.github.io/On%20the%20unicity%20of%20the%20infty%2C1-cat%20of%20higher%20categories.pdf" class="pdf-tag">PDF</a>
+                    </div>
+
+                    <div class="paper-item">
+                        <div class="paper-year">2025</div>
+                        <div class="paper-details">
+                            <a href="#" class="paper-link"><h3>Notes on the Ambidexterity in K(n)-Local Stable Homotopy Theory</h3></a>
+                            <div class="paper-meta">
+                            </div>
+                        </div>
+                        <a href="https://KumoNanahoshi.github.io/Ambidexterity%20Lurie%20%20Parts%201%2C2%2C3" class="pdf-tag">PDF</a>
+                    </div>
+
+
+
+                </div>
+            </section>
+
+            <section id="projects">
+                <h2>Experiments</h2>
+                <p>A collection of code snippets... </p>
+                <br>
+                <ul style="list-style: none;">
+                    <li style="margin-bottom: 10px;">
+                        <span style="color:var(--accent-orange)">●</span> <a href="https://github.com/KumoNanahoshi/LatentDiffusionToyModel" style="border-bottom: 1px solid var(--accent-cyan);">How to build a latemt diffusion model which works and try to use tda to probe it!</a>
+                    </li>
+                    <li style="margin-bottom: 10px;">
+                        <span style="color:var(--accent-orange)">●</span> <a href="https://github.com/KumoNanahoshi/DependentTypeElaboration" style="border-bottom: 1px solid var(--accent-cyan);">A exploratory code on type-checking and elaboration of Dependent Type Theory.</a>
+                    </li>
+                    <li style="margin-bottom: 10px;">
+                        <span style="color:var(--accent-orange)">●</span> <a href="https://github.com/KumoNanahoshi/TransformerPriceForecasting" style="border-bottom: 1px solid var(--accent-cyan);">Not serious stock price prediction using transformer</a>
+                    </li>
+                    <li style="margin-bottom: 10px;">
+                        <span style="color:var(--accent-orange)">●</span> <a href="https://github.com/KumoNanahoshi/Mat" style="border-bottom: 1px solid var(--accent-cyan);">Algorithms for matrix canonical forms</a>
+                    </li>
+                    <li style="margin-bottom: 10px;">
+                        <span style="color:var(--accent-orange)">●</span> <a href="https://github.com/KumoNanahoshi/Nash-Equilibrium" style="border-bottom: 1px solid var(--accent-cyan);"> Approximating Nash equilibrium of a randomly-generated small game, based on the article "Sample-based Approximation of Nash in Large Many-Player Games via Gradient Descent" </a>
+                    </li>
+                </ul>
+            </section>
+
+            <section id="contact" style="border-bottom: none;">
+                <h2>Connect</h2>
+                <p>
+                    <a href="mailto:irene.zhang@polytechnique.edu" style="background: var(--accent-yellow); color: black; padding: 0 5px;">Email</a> / 
+                    <a href="https://github.com/KumoNanahoshi">GitHub</a> / 
+                    <a href="https://www.linkedin.com/in/ir%C3%A8ne-zhang-0980003a8/">LinkedIn</a>
+                </p>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
